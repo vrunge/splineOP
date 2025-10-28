@@ -90,6 +90,9 @@ plot_Qsplines(res$p, res$v, res$a, seg)
 
 ############
 
+
+
+
 # Suppose the C++ function is already compiled via sourceCpp
 states <- matrix(1:6, nrow = 2, ncol = 3)
 data <- c(10, 20, 30)
