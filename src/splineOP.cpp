@@ -6,16 +6,25 @@
 #include "QuadraticCost.h"
 
 
-std::vector<int> dp_matrix(const std::vector<double>& data,
-                           double beta,
-                           int S = 10,
-                           int nb_initSpeed = 5,
-                           double data_var = 1.0)
+std::vector<int> splineOP(const std::vector<double>& data,
+                          double beta,
+                          int S = 10,
+                          int nb_initSpeed = 5,
+                          double data_var = 1.0)
 {
   int N = data.size();
   QuadraticCost qc(data); // Precompute all cumulative sums once
 
   Matrix<double> speeds(S, N, 0.0);
+
+  //////////////////////////////////////////////////////////////////////////////
+  // ---------------------------------------------------------------------------
+  // Initialize speed0 vector
+  // ---------------------------------------------------------------------------
+
+  // TODO TODO TODO
+  // TODO TODO TODO
+  // TODO TODO TODO
 
   //////////////////////////////////////////////////////////////////////////////
   // ---------------------------------------------------------------------------
@@ -67,6 +76,10 @@ std::vector<int> dp_matrix(const std::vector<double>& data,
       int best_i = -1;
       int best_s = -1;
 
+      // TODO TODO TODO
+      // TODO TODO TODO add comparison with the initial speeds
+      // TODO TODO TODO
+
       for (int s = 0; s < t; s++)
       {   // previous time
         for (int i = 0; i < S; i++)
@@ -106,6 +119,7 @@ std::vector<int> dp_matrix(const std::vector<double>& data,
   std::vector<int> change_points;
   change_points.push_back(N - 1);  // last time index is always a change point
 
+  /////////////////////////////////////////////////
   // Find best final state
   double min_final = std::numeric_limits<double>::infinity();
   int best_final_state = -1;
@@ -117,9 +131,9 @@ std::vector<int> dp_matrix(const std::vector<double>& data,
       best_final_state = j;
     }
   }
-
   int j = best_final_state;
   int t = N - 1;
+  /////////////////////////////////////////////////
 
   // Backtrack using argmin_s and argmin_i
   while (true)

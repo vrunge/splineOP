@@ -50,7 +50,6 @@ double QuadraticCost::S4(int n)
 // --- Compute cost C_{s:t}(p_s, p_t, v_t) ---
 double QuadraticCost::quadratic_cost_interval(int s, int t, double p_s, double p_t, double v_t) const
 {
-  assert(t > s && s >= 0 && t <= N);
   int n = t - s;
 
   // Coefficients of the quadratic p(x) = a(x - x_s)^2 + b(x - x_s) + c
@@ -75,13 +74,13 @@ double QuadraticCost::quadratic_cost_interval(int s, int t, double p_s, double p
   double cost = 0.0;
   cost += a * a * sum_L4;
   cost += 2.0 * a * b * sum_L3;
+  cost -= 2.0 * a * sum_yL2;
+  cost += sum_y2;
+  cost -= 2.0 * b * sum_yL1;
   cost += (2.0 * a * c + b * b) * sum_L2;
+  cost -= 2.0 * c * sum_y;
   cost += 2.0 * b * c * sum_L1;
   cost += c * c * n;
-  cost -= 2.0 * a * sum_yL2;
-  cost -= 2.0 * b * sum_yL1;
-  cost -= 2.0 * c * sum_y;
-  cost += sum_y2;
 
   return cost;
 }

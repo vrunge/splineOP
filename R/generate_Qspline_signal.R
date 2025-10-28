@@ -1,16 +1,16 @@
 #' Generate a Quadratic Spline Signal with Additive Noise
 #'
 #' @param result List output from `generate_Qsplines`, containing vectors `p`, `v`, and `a`
-#'   for the position, velocity, and acceleration of each segment.
+#'   for the position, velocity, and acceleration of each segment at its start.
 #' @param segments Numeric vector of segment lengths used to generate the spline.
-#' @param n_points Number of points per segment (default 50).
 #' @param noise_sd Standard deviation of additive Gaussian noise (default 0).
 #'
 #' @return A numeric vector representing the continuous spline signal with noise.
 #' @examples
-#' result <- list(p = c(0, 1, 2), v = c(1, 0.5, -0.5), a = c(0.1, -0.1, 0))
-#' segments <- c(3, 2, 4)
-#' signal <- generate_Qspline_signal(result, segments, n_points = 100, noise_sd = 0.05)
+#' segments <- c(30, 20, 40)
+#' accelerations <- c(1,-1,1)
+#' result <- generate_Qsplines(segments, accelerations)
+#' signal <- generate_Qspline_signal(result, segments, noise_sd = 0.01)
 #' plot(signal, type = "l")
 generate_Qspline_signal <- function(result, segments, noise_sd = 1)
 {

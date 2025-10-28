@@ -28,7 +28,6 @@ class Matrix
 
 
 
-
 // Implementation (must be in header for templates)
 
 // Constructor

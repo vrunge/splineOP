@@ -3,4 +3,5 @@
 simulations
 figures
 README.Rmd
+README_files
 ^LICENSE\.md$
