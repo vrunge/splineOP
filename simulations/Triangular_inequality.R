@@ -6,6 +6,15 @@ n <- 200
 # Example with 5 segments and given accelerations
 K <- 2
 segments <- c(n/2,n/2)
+
+w <- 0
+resALL <- NULL
+gap <- NULL
+
+while(w < 1000)
+{
+  print(w)
+ w <- w+1
 accelerations <- rnorm(K)
 result <- generate_Qsplines(segments, accelerations, max1 = TRUE)
 #'
@@ -24,8 +33,8 @@ signal <- generate_Qspline_signal(result, segments, noise_sd = sdNoise)
 
 # Plot positions along the spline
 
-s <- 60
-t <- 120
+s <- 50
+t <- 130
 u <- n
 
 nbState <- 5
@@ -45,6 +54,10 @@ v_s <- coef(fit)["tvec"]
 
 v_s
 
+
+###
+### choice of noise level : important
+###
 
 M <- sapply(1:n, function(t)
   c(signal[t], rnorm(nbState-1, signal[t], sdNoise))
@@ -141,6 +154,21 @@ for(i in 1:nbState)
   sum(yCC-signal[s:u])^2
   sum(yC-signal[s:u])^2
   comptage <- comptage + (sum((yCC-signal[s:u])^2) <= sum((yC-signal[s:u])^2))
+  gap <- c(gap, sum((yCC-signal[s:u])^2) - sum((yC-signal[s:u])^2))
 }
 
-comptage
+resALL <- c(resALL,comptage >0)
+}
+
+
+resALL
+sum(resALL)
+sum(resALL)/1000
+
+
+mat <- matrix(gap, ncol = 5, byrow = T)
+gap2 <- apply(mat,1,min)
+hist(gap2[gap2 > 0], breaks = 100)
+
+hist(gap, breaks = 1000)
+hist(gap[gap > -1000], breaks = 100)
